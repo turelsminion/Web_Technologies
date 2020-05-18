@@ -1,8 +1,31 @@
 function ex5() {
-    const fetchPromise = fetch("https://ghibliapi.herokuapp.com/people");
-    fetchPromise.then(response => {
-        return response.json();
-    }).then(people => {
-        console.log(people);
+    httpGet("https://ghibliapi.herokuapp.com/people")
+        .then(
+            response => console.log(response),
+            error => console.log("Reject " + error)
+        );
+}
+
+function httpGet(url) {
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', url, true);
+
+        xhr.onload = function() {
+            if (this.status == 200) {
+                resolve(this.response);
+            } else {
+                var error = new Error(this.statusText);
+                error.code = this.status;
+                reject(error);
+            }
+        };
+
+        xhr.onerror = function() {
+            reject(new Error("Network Error"));
+        };
+
+        xhr.send();
     });
+
 }

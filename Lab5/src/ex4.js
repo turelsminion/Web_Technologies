@@ -10,9 +10,9 @@ class Animal {
 }
 
 class Dog extends Animal {
-    constructor(name, created) {
+    constructor(name) {
         super(name);
-        this.created = created;
+        this.created = new Date();
     }
 
     get getCreated() {
@@ -20,6 +20,6 @@ class Dog extends Animal {
     }
 }
 
-var dog = new Dog("Husky", new Date());
+var dog = new Dog("Husky");
 console.log("Dog name = " + dog.getName);
 console.log("Dog created = " + dog.getCreated);
